@@ -1,0 +1,12 @@
+*.pyc
+__pycache__/
+*.log
+*.db
+*.sqlite3
+*.mp4
+*.mkv
+*.jpg
+*.jpeg
+*.png
+*.gif
+node_modules/
