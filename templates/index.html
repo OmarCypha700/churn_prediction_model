@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Churn Preiction Deployment</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'> -->
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
+  
+</head>
+<body>
+ <div class="container-lg">
+	<h1 class="text-center p-2">Customer Churn Prediction</h1>
+
+    <form  action="{{ url_for('predict')}}"method="post">
+       <div class="row m-2 form-group">
+
+        <div class="row m-2 p-2 rounded border d-flex flex-wrap">
+            <fieldset class="col" >
+                <legend class="fs-6 fw-bold"> Gender </legend>
+                <input type="radio" class="form-check-input" name="gender" id="male" value="male" />
+                <label for="male" class="form-check-label">Male</label>
+                
+                <input type="radio" class="form-check-input" name="gender" id="female" value="female" />
+                <label for="female" class="form-check-label">Female</label>
+            </fieldset>
+
+            <fieldset class="col" >
+                <legend class="fs-6 fw-bold"> Are you a senior citizen? </legend>
+                <label for="seniorcitizen1" class="form-check-label">Yes</label>
+                <input type="radio" id="seniorcitizen1" class="form-check-input" name="seniorcitizen" value="yes"  />
+                
+                <label for="seniorcitizen2" class="form-check-label">No</label>
+                <input type="radio" id="seniorcitizen2" class="form-check-input" name="seniorcitizen" value="no"  />
+            </fieldset>
+            
+            <fieldset class="col" >
+                <legend class="fs-6 fw-bold"> Do you have a partner? </legend>
+                <label for="partner1" class="form-check-label">Yes</label>
+                <input type="radio" id="partner1" class="form-check-input" name="partner" value="yes"  />
+                
+                <label for="partner2" class="form-check-label">No</label>
+                <input type="radio" class="form-check-input" name="partner" id="partner2" value="no"  />
+            </fieldset>
+            
+            <fieldset class="col" >
+                <legend class="fs-6 fw-bold"> Do you have dependents? </legend>
+                <label for="dependents1" class="form-check-label">Yes</label>
+                <input type="radio" id="dependents1" class="form-check-input" name="dependents" value="yes"  />
+                
+                <label for="dependents2" class="form-check-label">No</label>
+                <input type="radio" class="form-check-input" name="dependents" id="dependents2" value="no"  />
+            </fieldset>
+        </div>
+
+        <div class="row m-2 p-2 rounded border">
+            <fieldset class="col" >
+                <legend class="fs-6 fw-bold"> Do you have phone service? </legend>
+                <label for="phoneservice1" class="form-check-label">Yes</label>
+                <input type="radio" id="phoneservice1" class="form-check-input" name="phoneservice" value="yes"  />
+                
+                <label for="phoneservice2" class="form-check-label">No</label>
+                <input type="radio" class="form-check-input" name="phoneservice" id="phoneservice2" value="no"  />
+            </fieldset>
+            
+            <fieldset class="col" >
+                <legend class="fs-6 fw-bold"> Do you have Multiplelines? </legend>
+                <label for="multiplelines1" class="form-check-label">Yes</label>
+                <input type="radio" id="multiplelines1" class="form-check-input" name="multiplelines" value="yes"  />
+                
+                <label for="multiplelines2" class="form-check-label">No</label>
+                <input type="radio" id="multiplelines2" class="form-check-input" name="multiplelines" value="no"  />
+                
+                <label for="multiplelines2" class="form-check-label">No phone service</label>
+                <input type="radio" id="multiplelines2" class="form-check-input" name="multiplelines" value="no_phone_service"  />
+            </fieldset>
+        
+            <fieldset class="col" >
+                <legend class="fs-6 fw-bold"> Who is your internet service provider? </legend>
+                <label for="internetservice1" class="form-check-label">DSL</label>
+                <input type="radio" id="internetservice1" class="form-check-input" name="internetservice" value="dsl"  />
+                
+                <label for="internetservice2" class="form-check-label">Fiber optic</label>
+                <input type="radio" id="internetservice2" class="form-check-input" name="internetservice" value="fiber_optic"  />
+                
+                <label for="internetservice3" class="form-check-label">No</label>
+                <input type="radio" id="internetservice3" class="form-check-input" name="internetservice" value="no"  />
+            </fieldset>
+        </div>
+        <div class="row m-2 p-2 rounded border">
+            <fieldset class="col" >
+                <legend class="fs-6 fw-bold"> Do you have online security? </legend>
+                <label for="onlinesecurity1" class="form-check-label">Yes</label>
+                <input type="radio" id="onlinesecurity1" class="form-check-input" name="onlinesecurity" value="yes"  />
+                
+                <label for="onlinesecurity2" class="form-check-label">No</label>
+                <input type="radio" id="onlinesecurity2" class="form-check-input" name="onlinesecurity" value="no"  />
+                
+                <label for="onlinesecurity3" class="form-check-label">No internet service</label>
+                <input type="radio" id="onlinesecurity3" class="form-check-input" name="onlinesecurity" value="no_internet_service"  />
+            </fieldset>
+
+            <fieldset class="col">
+                <legend class="fs-6 fw-bold"> Do you have online backup? </legend>
+                <label for="onlinebackup1" class="form-check-label">Yes</label>
+                <input type="radio" id="onlinebackup1" class="form-check-input" name="onlinebackup" value="yes"  />
+                
+                <label for="onlinebackup2" class="form-check-label">No</label>
+                <input type="radio" id="onlinebackup2" class="form-check-input" name="onlinebackup" value="no"  />
+                
+                <label for="onlinebackup3" class="form-check-label">No internet service</label>
+                <input type="radio" id="onlinebackup3" class="form-check-input" name="onlinebackup" value="no_internet_service"  />
+            </fieldset>
+
+            <fieldset class="col" >
+                <legend class="fs-6 fw-bold"> Do you have device protection? </legend>
+                <label for="deviceprotection1" class="form-check-label">Yes</label>
+                <input type="radio" id="deviceprotection1" class="form-check-input" name="deviceprotection" value="yes"  />
+                
+                <label for="deviceprotection2" class="form-check-label">No</label>
+                <input type="radio" id="deviceprotection2" class="form-check-input" name="deviceprotection" value="no"  />
+                
+                <label for="deviceprotection3" class="form-check-label">No internet service</label>
+                <input type="radio" id="deviceprotection3" class="form-check-input" name="deviceprotection" value="no_internet_service"  />
+            </fieldset>
+        </div>
+        <div class="row m-2 p-2 rounded border">
+            <fieldset class="col" >
+                <legend class="fs-6 fw-bold"> Do you have tech support? </legend>
+                <label for="techsupport1" class="form-check-label">Yes</label>
+                <input type="radio" id="techsupport1" class="form-check-input" name="techsupport" value="yes"/>
+                
+                <label for="techsupport2" class="form-check-label">No</label>
+                <input type="radio" id="techsupport2" class="form-check-input" name="techsupport" value="no"/>
+                
+                <label for="techsupport3" class="form-check-label">No internet service</label>
+                <input type="radio" id="techsupport3" class="form-check-input" name="techsupport" value="no_internet_service"/>
+            </fieldset>
+
+            <fieldset class="col" >
+                <legend class="fs-6 fw-bold"> Do you have streaming TV? </legend>
+                <label for="streamingtv1" class="form-check-label">Yes</label>
+                <input type="radio" id="streamingtv1" class="form-check-input" name="streamingtv" value="yes"/>
+                
+                <label for="streamingtv2" class="form-check-label">No</label>
+                <input type="radio" id="streamingtv2" class="form-check-input" name="streamingtv" value="no"/>
+                
+                <label for="streamingtv3" class="form-check-label">No internet service</label>
+                <input type="radio" id="streamingtv3" class="form-check-input" name="streamingtv" value="no_internet_service"/>
+            </fieldset>
+            <fieldset class="col" >
+                <legend class="fs-6 fw-bold"> Do you have streaming movies? </legend>
+                <label for="streamingmovies1" class="form-check-label">Yes</label>
+                <input type="radio" id="streamingmovies1" class="form-check-input" name="streamingmovies" value="yes"  />
+                
+                <label for="streamingmovies2" class="form-check-label">No</label>
+                <input type="radio" id="streamingmovies2" class="form-check-input" name="streamingmovies" value="no"  />
+                
+                <label for="streamingmovies3" class="form-check-label">No internet service</label>
+                <input type="radio" id="streamingmovies3" class="form-check-input" name="streamingmovies" value="no_internet_service"  />
+            </fieldset>
+        </div>
+        <div class="row m-2 p-2 rounded border">
+            <fieldset class="col" >
+                <legend class="fs-6 fw-bold"> Do you have paperless billing? </legend>
+                <label for="paperlessbilling1" class="form-check-label">Yes</label>
+                <input type="radio" id="paperlessbilling1" class="form-check-input" name="paperlessbilling" value="yes"  />
+                
+                <label for="paperlessbilling2" class="form-check-label">No</label>
+                <input type="radio" id="paperlessbilling2" class="form-check-input" name="paperlessbilling" value="no"  />
+            </fieldset>
+
+            <div class="col">
+                <label for="contract" class="form-label fw-bold">Contract</label>
+                <select class="form-select" id="contract">
+                <option value="month-to-month">Month-to-month</option>
+                <option value="one_year">One year</option>
+                <option value="two_year">Two year</option>
+                </select>
+            </div>
+
+            <div class="col">
+                <label for="paymentmethod" class="form-label fw-bold">Payment Method</label>
+                <select class="form-select" id="paymentmethod">
+                <option value="electronic_check">Electronic check</option>
+                <option value="mailed_check">Mailed check</option>
+                <option value="bank_transfer">Bank transfer</option>
+                <option value="credit_card">Credit card</option>
+                </select>
+            </div>
+        </div>
+
+            <div class="row m-2 p-2 rounded border d-flex flex-row justify-content-between">
+                <div class="col-md-4 mb-3">
+                    <label for="monthlycharges" class="form-label fw-bold">Monthly charges</label>
+                    <input class="form-control" type="number" id="monthlycharges" required="required" />
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="totalcharges" class="form-label fw-bold">Total charges</label>
+                    <input class="form-control" type="number" id="totalcharges" required="required" />
+                </div> 
+                <div class="col-md-4 mb-3">   
+                    <label for="tenure" class="form-label fw-bold">Tenure</label>
+                    <input class="form-control" type="text" id="tenure" required="required" />
+                </div>    
+            </div>
+        </div> 
+
+            {% if prediction_results %}
+            <div class="d-flex justify-content-center">
+                <p>Customer probability of churning is {{ prediction_results.churn_probability*100 }}% </p>
+            </div>
+        {% endif %}
+
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary px-4 col-md-5">Predict</button>
+        </div>
+
+    </form>
+    
+
+   
+ </div>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
