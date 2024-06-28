@@ -1,4 +1,4 @@
-python
+
 # CUSTOMER CHURN PREDICTION APP
 
 Cypha Tech is a leading telecommunications company that provides a comprehensive range of communication services, including phone, internet, and television, to both residential and business customers. In a highly dynamic and competitive market, the company strives to maintain its edge by offering innovative services and exceptional customer experiences.
