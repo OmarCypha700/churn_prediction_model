@@ -9,15 +9,13 @@ To further enhance customer retention, the marketing department aims to proactiv
 
 Data was sourced from [Kaggle](https://https://www.kaggle.com/datasets/rashadrmammadov/customer-churn-dataset)
 
-```text
 The dataset contains information about customers and their churn status. Each row represents a customer, and each column contains customer attributes and information.
 
 Data was already clean upon download
-```
 
 ## Column Descriptions
 
-```text
+```txt
 **customerID:** Unique identifier for each customer.
 **gender:** Gender of the customer (Male, Female).
 **SeniorCitizen:** Whether the customer is a senior citizen or not (1: Yes, 0: No).
@@ -46,7 +44,7 @@ Data was already clean upon download
 ```Language: Python```
 ```Model: LogisticRegression```
 
-``` python=
+``` python
 # Import required libraries
 import numpy as np
 import pandas as pd 
@@ -65,7 +63,7 @@ import pickle
 
 ## Data Preparation
 
-``` python=
+``` python
 # Read data into a dataframe
 df = pd.read_csv('../data/Telco_Customer_Churn.csv')
 
@@ -93,7 +91,7 @@ df.churn = (df.churn == 'yes').astype(int)
 
 ```This splits the data into a training and testing sets```
 
-``` python=
+``` python
 # Split the data into 20% for testing and 80% for training and testing.
 df_train_full, df_test = train_test_split(df, test_size=0.2, random_state=1)
 
@@ -105,7 +103,7 @@ df_train, df_val = train_test_split(df_train_full, test_size=0.25, random_state=
 len(df_train), len(df_val), len(df_test)
 ```
 
-``` python=10
+``` python
 # Get the target values for the training, validation, and test sets.
 y_train = df_train.churn.values
 y_valid = df_val.churn.values
@@ -117,7 +115,7 @@ del df_test['churn']
 del df_val['churn']
 ```
 
-``` python!=
+``` python
 numerical = ['monthlycharges', 'tenure', 'totalcharges']
 
 categorical = ['gender',
@@ -140,7 +138,7 @@ categorical = ['gender',
 
 ## Training the Model
 
-```python=
+```python
 dv = DictVectorizer(sparse=False)
 
 # Transform datasets in to dictionaries
@@ -161,7 +159,7 @@ model.fit(X_train, y_train)
 
 ```The KFold class from sklearn.model_selection is used to split the data into n_splits folds, ensuring that each fold is used once as a validation set while the remaining folds form the training set. This process helps in assessing the model's robustness and its ability to generalize to unseen data.```
 
-``` python=
+``` python
 # Define the number of splits for cross-validation and the regularization parameter
 n_split = 5
 C = 1.0
@@ -205,7 +203,7 @@ C=1.0 0.842 +- 0.007
 
 ### Create functions for training and pridictions
 
-```python=
+```python
 def train(df_train, y_train, C=1.0):
 # Convert the data into a dictionary
     dicts = df_train[categorical + numerical].to_dict(orient='records')
@@ -219,7 +217,7 @@ def train(df_train, y_train, C=1.0):
     return dv, model 
 ```
 
-```python=
+```python
 def predict(dv, df, model):
     # Converts the data into a dictionary
     dicts = df[categorical + numerical].to_dict(orient='records')
@@ -233,7 +231,7 @@ def predict(dv, df, model):
 
 ### Auc Score
 
-``` python=
+``` python
 dv, model = train(df_train_full, df_train_full.churn.values, C=1.0)
 y_pred = predict(dv, df_test, model)
 y_test = df_test.churn.values
@@ -248,7 +246,7 @@ auc
 
 ## Save modle with Pickle
 
-```python=
+```python
 output_file = f'model_C={C}.bin'
 
 with open(output_file, 'wb') as f_out:
@@ -272,7 +270,7 @@ Ensure your directory looks like this
 
 ### requirements.txt file
 
-```tex=
+```bash
 Flask==2.0.3
 Werkzeug==2.0.3
 gunicorn==20.1.0
@@ -282,7 +280,7 @@ numpy==1.21.4
 
 ### app.py
 
-```python=
+```python
 from flask import Flask, request, jsonify, render_template
 import pickle
 ## Load the model
@@ -323,32 +321,32 @@ To run this application on your local machine,
 
 - Create a virtual environment
 
-```cmd=
+```bash
 py m venv venv
 ```
 
 - Activate your environment variable
 
-```cmd=
+```bash
 source venv/Scripts/activate
 ```
 
 - `cd` into the root directory
 - Install your dependencies in the `requirements.txt` file
 
-```cmd=
+```bash
 pip install -r requirements.txt
 ```
 
 - Run the `app.py` file
 
-```cmd=
+```bash
 py app.py
 ```
 
 - Output
 
-```cmd=
+```bash
  * Serving Flask app 'churn'
  * Debug mode: off
 WARNING: This is a development server. Do not use it in a production deployment. 
