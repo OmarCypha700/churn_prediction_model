@@ -7,7 +7,7 @@ To further enhance customer retention, the marketing department aims to proactiv
 
 ## Data Source
 
-Data was sourced from [Kaggle](https://https://www.kaggle.com/datasets/rashadrmammadov/customer-churn-dataset)
+Data was sourced from [Kaggle](https://www.kaggle.com/datasets/rashadrmammadov/customer-churn-dataset)
 
 The dataset contains information about customers and their churn status. Each row represents a customer, and each column contains customer attributes and information.
 
